@@ -22,3 +22,11 @@ $ ./darkwallet
 ```
 
 <img src="darkwalletscreenshot.png" height="350px" />
+
+
+## Todos 
+
+ 	- [ ] Create & use libdarkfi-cpp  
+	- [ ] Integrate DarkPulse  
+	- [ ] Settings page  
+
