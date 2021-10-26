@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>BalancesForm.qml</file>
+        <file>TransferForm.qml</file>
+        <file>DepositAndWithdrawForm.qml</file>
+        <file>SettingsForm.qml</file>
+        <file>TitleBar.qml</file>
+        <file>fonts/fa-solid-900.ttf</file>
+        <file>SectionTitle.qml</file>
+    </qresource>
+</RCC>
