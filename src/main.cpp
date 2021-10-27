@@ -57,13 +57,14 @@ int main(int argc, char* argv[])
 
 		auto error = rpc_client->connect();
 
+		std::cout << c << ": Try to connect to darkfid: " << error.message()
+				  << "\n";
+
 		if (!error) {
 			std::cout << "CONNECTION: "
 					  << "The connection established."
 					  << "\n";
 			break;
-		} else {
-			std::cerr << "CONNECTION: " << error.message() << "\n";
 		}
 
 		++c;

@@ -41,9 +41,9 @@ target_include_directories(darkwallet PRIVATE ${HEADERS_PATH})
 
 target_link_libraries(
 	darkwallet
-	PRIVATE Qt${QT_VERSION_MAJOR}::Core
+	PRIVATE 
+	Qt${QT_VERSION_MAJOR}::Core
 	Qt${QT_VERSION_MAJOR}::Quick
-
 	Boost::system
 	Boost::thread
 	Boost::regex
