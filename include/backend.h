@@ -19,6 +19,8 @@ class Backend : public QObject {
 
 	Q_PROPERTY(QString wallet_address READ get_address NOTIFY on_update)
 
+	Q_PROPERTY(QString cashier_address READ get_cashier_address NOTIFY on_update)
+
 	Q_PROPERTY(
 		QString notification READ get_notification NOTIFY send_notification)
 

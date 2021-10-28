@@ -90,6 +90,7 @@ void Backend::update()
 
 		boost::json::object result = obj["result"].as_object();
 		boost::json::array nets = result["networks"].as_array();
+		cashier_address = result["public_key"].as_string().c_str();
 
 		for (auto net : nets) {
 			for (auto n_obj : net.as_object()) {
