@@ -6,8 +6,8 @@ Backend::Backend(rpc::RpcClient* rpc_client)
 	// this hardcoded but it should get it from rpc function
 	QVariantList solana_tokens { "SOL", "BTC", "USDC" };
 	QVariantList bitcoin_tokens { "BTC" };
-	supported_deposit_tokens.insert("Solana", solana_tokens);
-	supported_deposit_tokens.insert("Bitcoin", bitcoin_tokens);
+	supported_deposit_tokens.insert("solana", solana_tokens);
+	supported_deposit_tokens.insert("bitcoin", bitcoin_tokens);
 
 	// update address
 	std::optional<boost::json::object> data
@@ -89,10 +89,13 @@ void Backend::update()
 		networks = {};
 
 		boost::json::object result = obj["result"].as_object();
+		boost::json::array nets = result["networks"].as_array();
 
-		for (auto net : result) {
-			QString n(net.key().to_string().c_str());
-			networks.append(n);
+		for (auto net : nets) {
+			for (auto n_obj : net.as_object()) {
+				QString n(n_obj.key().to_string().c_str());
+				networks.append(n);
+			}
 		}
 	}
 
@@ -114,7 +117,7 @@ void Backend::on_withdraw(QString token, QString token_address, QString amount)
 	params.push_back(boost::json::value_from(selected_network.toStdString()));
 	params.push_back(boost::json::value_from(token.toStdString()));
 	params.push_back(boost::json::value_from(token_address.toStdString()));
-	// should be the amount 
+	// should be the amount
 	params.push_back(boost::json::value_from(amount.toStdString()));
 
 	std::optional<boost::json::object> data
@@ -182,34 +185,3 @@ void Backend::on_transfer(QString token, QString address, QString amount)
 	emit send_notification();
 }
 
-QVariant Backend::get_tokens_info_list()
-{
-	return QVariant::fromValue(tokens_info_list);
-}
-
-QVariantList Backend::get_own_tokens() { return own_tokens; }
-
-QVariantList Backend::get_networks() { return networks; }
-
-QVariantList Backend::get_supported_deposit_tokens()
-{
-	QVariantList tokens = supported_deposit_tokens[selected_network];
-	return tokens;
-}
-
-QVariantList Backend::get_supported_withdraw_tokens()
-{
-	QVariantList tokens {};
-
-	for (auto token : tokens_info_list) {
-		if (token->get_network().toLower() == selected_network.toLower()) {
-			tokens.append(token->get_name());
-		}
-	}
-
-	return tokens;
-}
-
-QString Backend::get_address() { return wallet_address; }
-
-QString Backend::get_notification() { return notification; }
